@@ -263,6 +263,37 @@ class TestPath:
         assert route_spec['parameters'][0] == metadata['parameters']['test_parameter']
 
 
+class TestAddMultiplePaths:
+
+    def test_add_paths_in_empty_list(self, spec):
+        num_paths = len(spec._paths)
+        spec.add_paths(paths=[])
+        assert len(spec._paths) == num_paths
+
+    def test_add_paths_single_path_object_list(self, spec):
+        num_paths = len(spec._paths)
+        path = Path(path='/v1/pet', operations={'get': {}})
+        spec.add_paths(paths=[path])
+        assert len(spec._paths) == num_paths + 1
+
+    def test_add_paths_multiple_path_object_list(self, spec):
+        num_paths = len(spec._paths)
+        paths = [Path(path='/v1/pet/' + x) for x in ('cat', 'dog', 'octopus')]
+        spec.add_paths(paths=paths)
+        assert len(spec._paths) == num_paths + len(paths)
+
+    def test_add_paths_not_only_path_objects_list(self, spec):
+        paths = [Path(path='/v1/pet/' + x) for x in ('cat', 'dog', 'octopus')]
+        paths.insert(2, 'this_is_not_a_Path')
+        with pytest.raises(TypeError):
+            spec.add_paths(paths=paths)
+
+    def test_add_paths_none_paths_nor_helpers(self, spec):
+        num_paths = len(spec._paths)
+        spec.add_paths()
+        assert len(spec._paths) == num_paths
+
+
 class TestPlugins:
 
     DUMMY_PLUGIN = 'tests.plugins.dummy_plugin'

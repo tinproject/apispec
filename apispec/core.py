@@ -201,6 +201,22 @@ class APISpec(object):
 
         self._paths.setdefault(path.path, path).update(path)
 
+    def add_paths(self, paths=None, **kwargs):
+        """Add a multiple path objects to the spec.
+
+        :param list[Path]|None path: List of :class:`Path` object instances
+        :param dict kwargs: parameters used by any path helpers see :meth:`register_multiple_paths_helper`
+        """
+        if paths is None:
+            # TODO look for helpers
+            paths = []
+
+        for path in paths:
+            if isinstance(path, Path):
+                self.add_path(path=path)
+            else:
+                raise TypeError("Try to add a non Path object", path)
+
     def definition(self, name, properties=None, enum=None, description=None, extra_fields=None,
                    **kwargs):
         """Add a new definition to the spec.
