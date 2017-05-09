@@ -108,6 +108,7 @@ class APISpec(object):
         self.plugins = {}
         self._definition_helpers = []
         self._path_helpers = []
+        self._multiple_paths_helpers = []
         # {'get': {200: [my_helper]}}
         self._response_helpers = {}
 
@@ -288,6 +289,19 @@ class APISpec(object):
         The helper may define any named arguments in its signature.
         """
         self._path_helpers.append(func)
+
+    def register_multiple_paths_helper(self, func):
+        """Register a new multiple paths helper. The helper **must** meet the following conditions:
+
+        - Receive the `APISpec` instance as the first argument.
+        - Include ``**kwargs`` in signature.
+        - Return a `list` of `apispec.core.Path` objects.
+
+        The helper may define any named arguments in its signature.
+        This kind of helper should be used in cases where a single path can't be added at once,
+        for example, when the same view function is used for multiple url paths.
+        """
+        self._multiple_paths_helpers.append(func)
 
     def register_response_helper(self, func, method, status_code):
         """Register a new response helper. The helper **must** meet the following conditions:

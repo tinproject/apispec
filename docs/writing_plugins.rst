@@ -97,6 +97,6 @@ To use the plugin:
 Next Steps
 ----------
 
-* To learn more about how to write helper functions, consult the :ref:`Core API docs <core_api>` for `register_definition_helper <apispec.APISpec.register_definition_helper>`, `register_path_helper <apispec.APISpec.register_path_helper>`, and `register_response_helper <apispec.APISpec.register_response_helper>`
+* To learn more about how to write helper functions, consult the :ref:`Core API docs <core_api>` for `register_definition_helper <apispec.APISpec.register_definition_helper>`, `register_path_helper <apispec.APISpec.register_path_helper>`, `register_multiple_paths_helper <apispec.APISpec.register_multiple_paths_helper>`, and `register_response_helper <apispec.APISpec.register_response_helper>`
 * View the source for apispec's bundled plugins, e.g. `apispec.ext.flask </_modules/apispec/ext/flask.html>`_
 * Check out some projects using apispec: https://github.com/marshmallow-code/apispec/wiki/Ecosystem
